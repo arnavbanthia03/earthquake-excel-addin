@@ -209,6 +209,11 @@ Restart Excel, then go to **Insert → Add-ins → My Add-ins** and pick the add
 
 > **Windows PowerShell note:** older PowerShell versions do not support `&&`. Run each command on its own line.
 
+
+## Research Questions
+!!NEED TO ADD ARNAV. ADD IT HERE!!
+
+
 ## Research Questions
 
 ### 1. What are Office Add-ins and the manifest file?
