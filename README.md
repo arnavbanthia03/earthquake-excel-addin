@@ -2,7 +2,7 @@
 
 **Topic 12: Excel Add-in that Fetches API Data**
 
-An Office Task Pane Add-in for Microsoft Excel, built with JavaScript and HTML. With one click, it fetches the latest earthquakes (past 24 hours) from the public [USGS Earthquake API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) and writes them into an Excel worksheet.
+An Office Task Pane Add-in for Microsoft Excel, built with JavaScript and HTML. With one click, it fetches the latest earthquakes (past 30 days) from the public [USGS Earthquake API](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) and writes them into an Excel worksheet.
 
 ---
 
@@ -33,7 +33,8 @@ An Office Task Pane Add-in for Microsoft Excel, built with JavaScript and HTML. 
 
 ## Features
 
-- Fetches every earthquake USGS reported in the past 24 hours
+- Fetches every earthquake USGS reported in the past 30 days (`all_month` feed)
+- Writes 13 columns per earthquake: location, magnitude, magnitude type, time, latitude, longitude, depth, event type, status, tsunami flag, significance, alert level and a link to the USGS event page
 - Writes the results to a dedicated worksheet called **Earthquakes**, so existing sheets are never overwritten
 - Orange header row, columns auto-fitted
 - Magnitude and depth are stored as real numbers, so Excel can sort, filter and chart them
@@ -64,7 +65,7 @@ The task pane is a normal web page (HTML, CSS and JavaScript) that Excel display
                                                 v
                                    +------------------------+
                                    |   USGS Earthquake API  |
-                                   |  (all_day.geojson)     |
+                                   |  (all_month.geojson)   |
                                    +------------------------+
 ```
 
@@ -93,8 +94,10 @@ The 2D array that `formatter.js` produces looks like this, where the first row i
 
 ```js
 [
-  ["Location", "Magnitude", "Time", "Depth (km)"],
-  ["10 km NE of Ridgecrest, CA", 2.4, "30/10/2026, 10:00:00 am", 6.1]
+  ["Location", "Magnitude", "Mag Type", "Time", "Latitude", "Longitude", "Depth (km)",
+   "Type", "Status", "Tsunami", "Significance", "Alert", "USGS Link"],
+  ["10 km NE of Ridgecrest, CA", 2.4, "ml", "30/10/2026, 10:00:00 am", 35.7, -117.5, 6.1,
+   "earthquake", "reviewed", "No", 89, "None", "https://earthquake.usgs.gov/earthquakes/eventpage/..."]
 ]
 ```
 
@@ -313,6 +316,7 @@ The dev server must stay running the whole time, because Excel loads the page fr
 | Manifest not accepted | Run `npm run validate` and read the message. |
 | "Network error" in the task pane | Check your internet connection and that `earthquake.usgs.gov` is reachable. |
 | Add-in doesn't appear after sideloading | Restart Excel, and confirm the dev server is still running. |
+| Fetch is slow or Excel feels sluggish | The 30-day feed can contain thousands of rows. Wait for the spinner to finish, or switch `api.js` to a smaller feed such as `all_week` or `2.5_month`. |
 | Old icon still showing | Run `npm stop`, close Excel, clear the Office cache, then `npm start` again. |
 | `&&` error in PowerShell | Run the commands on separate lines. |
 
@@ -320,8 +324,8 @@ The dev server must stay running the whole time, because Excel loads the page fr
 
 ## Data Source
 
-Earthquake data comes from the [USGS Earthquake Hazards Program](https://earthquake.usgs.gov/) public GeoJSON feeds. This project uses the *past day, all magnitudes* feed:
+Earthquake data comes from the [USGS Earthquake Hazards Program](https://earthquake.usgs.gov/) public GeoJSON feeds. This project uses the *past 30 days, all magnitudes* feed:
 
-`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson`
+`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson`
 
-Other feeds follow the same pattern (`all_hour`, `all_week`, `all_month`, or a magnitude filter such as `4.5_day`), so switching only requires changing the URL in `api.js`.
+Other feeds follow the same pattern (`all_hour`, `all_day`, `all_week`, or a magnitude filter such as `4.5_month`), so switching only requires changing the URL in `api.js`.
