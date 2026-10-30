@@ -27,7 +27,7 @@ async function handleFetchClick() {
     const count = table.length - 1;                    // minus header row
     setStatus(
       count === 0
-        ? "No earthquakes reported in the past hour."
+        ? "No earthquakes reported in the past month."
         : `Loaded ${count} earthquake${count === 1 ? "" : "s"}.`,
       false
     );
