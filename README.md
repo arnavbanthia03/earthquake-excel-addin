@@ -25,9 +25,9 @@ An Office Task Pane Add-in for Microsoft Excel, built with JavaScript and HTML. 
 | Member | Role | Branch | Files |
 |---|---|---|---|
 | **Arnav Banthia** | Lead Developer (Core Architecture & Office.js Integration) | `main` | `manifest.xml`, `taskpane.html`, `taskpane.js` |
-| [Member 2 Name] | API Service Integration | `feature-api-service` | `api.js` |
-| [Member 3 Name] | Data Formatter | `feature-data-formatter` | `formatter.js` |
-| [Member 4 Name] | UI/UX Styles | `feature-ui-styles` | `styles.css`, `ui.js` |
+| Dhanraj Haria | API Service Integration | `feature-api-service` | `api.js` |
+| Shaurya Lalwani | Data Formatter | `feature-data-formatter` | `formatter.js` |
+| Sarthakk Mukherji | UI/UX Styles | `feature-ui-styles` | `styles.css`, `ui.js` |
 
 ---
 
@@ -125,7 +125,7 @@ earthquake-addin/
     ├── api.js                   # USGS fetch
     ├── formatter.js             # GeoJSON -> 2D array
     ├── ui.js                    # spinner and status helpers
-    └── styles.css               # white and orange theme
+    └── styles.css               # theme
 ```
 
 ---
@@ -141,8 +141,8 @@ earthquake-addin/
 ### 1. Clone and install
 
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/arnavbanthia03/earthquake-excel-addin
+cd earthquake-excel-addin
 npm install
 ```
 
@@ -208,37 +208,6 @@ Restart Excel, then go to **Insert → Add-ins → My Add-ins** and pick the add
 4. Click **Clear Sheet** to empty it.
 
 > **Windows PowerShell note:** older PowerShell versions do not support `&&`. Run each command on its own line.
-
-### Git workflow for the team
-
-1. Arnav scaffolds the project (`yo office`, choosing *Add-in only manifest*) and pushes it to `main` first.
-2. Each teammate branches off `main`, adds only their own files, and pushes their branch.
-3. Each teammate opens a Pull Request into `main`, and Arnav reviews and merges.
-4. `taskpane.js` already imports the other modules, so no code changes are needed after merging as long as file names and export names stay exactly as in the module contract.
-
----
-
-## Screenshots
-
-> Replace the links below with your own images. Create a `docs/screenshots/` folder in the repo, add your PNGs there, and keep these file names (or update the paths).
-
-### Task pane
-
-![Task Pane View](docs/screenshots/task-pane.png)
-
-### Loading state
-
-![Loading Spinner](docs/screenshots/loading.png)
-
-### Data written to the worksheet
-
-![Earthquakes Worksheet](docs/screenshots/worksheet.png)
-
-### Error message
-
-![Error State](docs/screenshots/error.png)
-
----
 
 ## Research Questions
 
